@@ -2,12 +2,10 @@
 <!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://getahead.org/dwr/dwr20.dtd"> 
 <dwr>
 	<allow>
-    	<create creator="new" javascript="test1">
-        	<param name="class" value="com.dwr.Test1"/>
+    
+    	<create creator="new" javascript="download">
+        	<param name="class" value="com.oss.operations.DwrDownload"/>
     	</create>
     	
-    	<create creator="new" javascript="download">
-        	<param name="class" value="com.oss.workingthreads.dwrDownload"/>
-    	</create>
 	</allow>
 </dwr>

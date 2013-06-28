@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Renaming</title>
 </head>
 <body>
 	<%
@@ -18,9 +18,9 @@
 			String[] newNameArr = new String[totalNum];
 			
 			for(int i=0; i<=totalNum-1; i++){
-		newNameArr[i] = request.getParameter(i+"");
-		Thread worker = new Thread(new RenameThread(client,bucketName,nameArray[i],newNameArr[i]));
-		worker.start();
+				newNameArr[i] = request.getParameter(i+"");
+				Thread worker = new Thread(new RenameThread(client,bucketName,nameArray[i],newNameArr[i])); 
+				worker.start();
 			}
 	%>
 	<h3>修改请求已提交OSS，<a href="index.jsp">返回</a>查看修改结果</h3>

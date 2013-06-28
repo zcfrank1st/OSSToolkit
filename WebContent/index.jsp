@@ -21,6 +21,8 @@
 		
 		OSSClient client = new OSSClient(keyID,keySecret); 
 		request.getSession().setAttribute("OSSClient",client);
+		//request.getSession().setAttribute("Id",keyID);
+		//request.getSession().setAttribute("Secret",keySecret);
 		
 	%>
 		<table border="1">
@@ -38,7 +40,7 @@
 						ObjectListing listing = client.listObjects(b.getName());
 						for (OSSObjectSummary sum : listing.getObjectSummaries()){
 					%>
-					<%=sum.getKey()%><br> 
+					<%=sum.getKey()%>&nbsp;&nbsp;&nbsp;&nbsp;<a href="objHttpAttr.jsp?bucket=<%=b.getName()%>&object=<%=sum.getKey()%>"><font size=2>Http Header属性</font></a><br> 
 					<%  } %>
 				</td>
 			</tr>

@@ -1,3 +1,5 @@
+<%@page import="com.aliyun.openservices.oss.model.ObjectMetadata"%>
+<%@page import="com.aliyun.openservices.oss.model.OSSObject"%>
 <%@page import="com.aliyun.openservices.oss.OSSClient"%>
 <%@page import="com.aliyun.openservices.oss.model.OSSObjectSummary"%> 
 <%@page import="com.aliyun.openservices.oss.model.ObjectListing"%> 
@@ -17,6 +19,9 @@
 	<h1>Bucket:<%=str %></h1>
 	<% 
 	OSSClient c = (OSSClient)request.getSession().getAttribute("OSSClient"); 
+	//String id = (String)request.getSession().getAttribute("Id"); 
+	//String secret = (String)request.getSession().getAttribute("Secret"); 
+	
 	%>
 		<table border="1">
 			<tr>
@@ -29,6 +34,12 @@
 					<% 
 						ObjectListing listing = c.listObjects(str);
 						for (OSSObjectSummary sum : listing.getObjectSummaries()){ 
+							
+							//下载前设置http头content-disposition为attachment
+							OSSObject obj = c.getObject(str, sum.getKey());
+							ObjectMetadata meta = new ObjectMetadata();
+							meta.setContentDisposition("attachment");
+							obj.setObjectMetadata(meta);
 					%>
 					<input type="checkbox" name="checkboxes" value="<%=sum.getKey()%>"><%=sum.getKey()%><br> 
 					<%  } %>
@@ -83,16 +94,30 @@ function openUrl(){
 			objects[count]=$(this).val();
 			count++;
 		});
-		location.href="rename.jsp?bn="+bucket+"&objects="+objects;
+		if (objects.length != 0){
+			location.href="rename.jsp?bn="+bucket+"&objects="+objects;
+		}else{
+			alert("请选择文件！");
+		}
 	}
 </script>
 
-<input type="button" value="修改选中文件HTTP表头"><% //TODO 表头修改实现 %>
-
-
-
-
-
+<input type="button" value="修改选中文件HTTP表头" onclick="changeHttpHead()">
+<script type="text/javascript">
+	function changeHttpHead(){
+		var objects =[];
+		var count = 0;
+		$("input:checked").each(function(){
+			objects[count]=$(this).val();
+			count++;
+		});
+		if (objects.length != 0){
+			location.href="http.jsp?bn="+bucket+"&objects="+objects;
+		}else{
+			alert("请选择文件！");
+		}	
+	}
+</script>
 
 <br><br>
 <a href="index.jsp">返回</a>

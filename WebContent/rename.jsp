@@ -18,8 +18,8 @@
 		<table border="1">
 			<tr>
 				<td>Bucket Name</td>
-				<td>Objects' Old Name</td>
-				<td>Objects' New Name</td>
+				<td>Objects' Old Names</td>
+				<td>Objects' New Names</td>
 			</tr>
 			<tr>
 				<td><%=str %></td>
@@ -43,7 +43,7 @@
 				</td>
 			</tr>
 		</table>
-		<input type="submit" name="names" value="Change">
+		<input type="submit" name="names" value="Rename">
 		<input type="reset" name="reset" value="Cancel">
 		<br>
 		<a href=# onclick="javascript:history.go(-1);">返回</a>
