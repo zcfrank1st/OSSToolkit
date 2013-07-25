@@ -24,6 +24,14 @@
     <url-pattern>/dwr/*</url-pattern>
   </servlet-mapping>
   
-   
+  <servlet>
+      <servlet-name>UploadFiles</servlet-name>
+      <servlet-class>com.oss.operations.UploadFiles</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+      <servlet-name>UploadFiles</servlet-name>
+      <url-pattern>/UploadFiles</url-pattern>
+  </servlet-mapping>
   
 </web-app>

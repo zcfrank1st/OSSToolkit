@@ -4,14 +4,20 @@
 <%@page import="com.aliyun.openservices.oss.OSSClient"%> 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" errorPage="error.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html> 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
+
 <title>OSS Toolkit Page</title>
 </head>
 <body>
+<div class="container">
+<div class="page-header">	
 <h1>OSS Overview</h1>
+</div>
 	<%
 		//String keyID = request.getParameter("id");
 		//String keySecret = request.getParameter("secret");
@@ -25,7 +31,7 @@
 		//request.getSession().setAttribute("Secret",keySecret);
 		
 	%>
-		<table border="1">
+		<table class="table table-bordered table-striped">
 			<tr>
 				<td>Buckets</td>
 				<td>Objects</td>
@@ -40,12 +46,12 @@
 						ObjectListing listing = client.listObjects(b.getName());
 						for (OSSObjectSummary sum : listing.getObjectSummaries()){
 					%>
-					<%=sum.getKey()%>&nbsp;&nbsp;&nbsp;&nbsp;<a href="objHttpAttr.jsp?bucket=<%=b.getName()%>&object=<%=sum.getKey()%>"><font size=2>Http Header属性</font></a><br> 
+					<%=sum.getKey()%>&nbsp;&nbsp;&nbsp;&nbsp;<a href="objHttpAttr.jsp?bucket=<%=b.getName()%>&object=<%=sum.getKey()%>" class="btn btn-small btn-success"><i class="icon-leaf icon-white"></i> Http Header属性</a><br> 
 					<%  } %>
 				</td>
 			</tr>
 			<%}%>
 		</table>
-		
+</div>
 </body>
 </html>

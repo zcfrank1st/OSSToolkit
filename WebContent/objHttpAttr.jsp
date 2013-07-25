@@ -5,9 +5,11 @@
 <%@page import="com.aliyun.openservices.oss.OSSClient"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html> 
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Http Header Attr</title>
 </head>
@@ -30,15 +32,28 @@
 		String ContentEncoding = meta.getContentEncoding();
 		String ContentDisposition = meta.getContentDisposition();
 	%>
-	<h1>Http Header Attr</h1>
-	<h2>Bucket:Object--><%=bucket %>:<%=obj %> </h2>
-	Content-Type:<%=ContentType %><br><br>
-	Content-Length:<%=ContentLength %><br><br>
-	<!--  Expires:<%--=Expires --%><br><br>-->
-	Cache-Control:<%=CacheControl %><br><br>
-	Content-Encoding:<%=ContentEncoding %><br><br>
-	Content-Disposition:<%=ContentDisposition %><br><br>
+<div class="container">
+	<div class="page-header"><h1>Http Header Attr  <small>Bucket:Object--><%=bucket %>:<%=obj %></small></h1></div>
+	<table class="table table-striped table-bordered">
+		<tr>
+			<td>Content-Type:<%=ContentType %><br><br></td>
+		</tr>
+		<tr>
+			<td>Content-Length:<%=ContentLength %><br><br></td>
+		</tr>
+		<tr>
+			<td>Cache-Control:<%=CacheControl %><br><br></td>
+		</tr>
+		<tr>
+			<td>Content-Encoding:<%=ContentEncoding %><br><br></td>
+		</tr>
+		<tr>
+			<td>Content-Disposition:<%=ContentDisposition %><br><br></td>
+		</tr>
+	</table>
 	
-	<a href="index.jsp">返回</a>
+	<!--  Expires:<%--=Expires --%><br><br>-->
+	<a href="index.jsp" class="btn btn-info btn-mini"><i class="icon-leaf icon-white"></i> 返回</a>
+</div>
 </body>
 </html>

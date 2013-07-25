@@ -2,9 +2,11 @@
 <%@page import="com.aliyun.openservices.oss.OSSClient"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html> 
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Renaming</title>
 </head>
@@ -23,6 +25,6 @@
 				worker.start();
 			}
 	%>
-	<h3>修改请求已提交OSS，<a href="index.jsp">返回</a>查看修改结果</h3>
+	<h3>修改请求已提交OSS，<a href="index.jsp" class="btn btn-info btn-mini"><i class="icon-leaf icon-white"></i> 返回</a>查看修改结果</h3>
 </body>
 </html>

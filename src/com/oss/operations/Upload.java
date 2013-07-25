@@ -8,23 +8,22 @@ import java.io.InputStream;
 import com.aliyun.openservices.oss.OSSClient;
 import com.aliyun.openservices.oss.model.ObjectMetadata;
 import com.aliyun.openservices.oss.model.PutObjectResult;
-// FIXME 改进实现断点续传功能
-public class UploadThread implements Runnable{
+
+public class Upload implements Runnable{
 	private OSSClient client = null;
-	private String path = "";
+	private File f;
 	private String bucketName = "";
 	private String key = "";
 	
-	public UploadThread(OSSClient client, String path, String bucketName, String key){
+	public Upload(OSSClient client, File f, String bucketName, String key){
 		this.client = client;
-		this.path = path;
+		this.f = f;
 		this.bucketName = bucketName;
 		this.key = key;
 	}
-	
+
 	@Override
 	public void run() {
-		File f = new File(path);
 		InputStream content = null;;
 		try {
 			content = new FileInputStream(f);
@@ -35,9 +34,12 @@ public class UploadThread implements Runnable{
 		ObjectMetadata meta = new ObjectMetadata();
 		meta.setContentLength(f.length());
 		
-		@SuppressWarnings("unused")
 		PutObjectResult result = client.putObject(bucketName, key, content, meta);
-
+		
+		if (result.getETag()!= "" && result.getETag() != null){
+			f.delete();
+		}
+		
 	}
 	
 }

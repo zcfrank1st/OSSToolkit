@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html> 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
 <title>
 		<%
 			String str = request.getParameter("bn");
@@ -13,9 +15,12 @@
 </title>
 </head>
 <body>
-	<h1>Rename Bucket:<%=str %>'s Objects</h1>
+<div class="container">
+	<div class="page-header">
+		<h1>Rename Bucket:<%=str %>'s Objects</h1>
+	</div>
 	<form action="renameAction.jsp?bn=<%=str %>&objs=<%=objs %>" method="post">
-		<table border="1">
+		<table class="table table-bordered table-striped table-condensed">
 			<tr>
 				<td>Bucket Name</td>
 				<td>Objects' Old Names</td>
@@ -43,10 +48,11 @@
 				</td>
 			</tr>
 		</table>
-		<input type="submit" name="names" value="Rename">
-		<input type="reset" name="reset" value="Cancel">
-		<br>
-		<a href=# onclick="javascript:history.go(-1);">返回</a>
+		<input type="submit" name="names" value="Rename" class="btn btn-small btn-primary">
+		<input type="reset" name="reset" value="Cancel" class="btn btn-small btn-primary">
+		<br><br>
+		<a href=# onclick="javascript:history.go(-1);return false;" class="btn btn-mini btn-info"><i class="icon-leaf icon-white"></i> 返回</a>
 	</form>
+</div>
 </body>
 </html>

@@ -1,8 +1,6 @@
 package com.oss.operations;
 
 import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.aliyun.openservices.oss.OSSClient;

@@ -2,28 +2,49 @@
 <%@page import="com.aliyun.openservices.oss.model.OSSObject"%>
 <%@page import="com.aliyun.openservices.oss.OSSClient"%>
 <%@page import="com.aliyun.openservices.oss.model.OSSObjectSummary"%> 
-<%@page import="com.aliyun.openservices.oss.model.ObjectListing"%> 
+<%@page import="com.aliyun.openservices.oss.model.ObjectListing"%>  
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html> 
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.leanModal.min.js"></script> 
 <script src='dwr/interface/download.js'></script>
 <script src='dwr/engine.js'></script>
 <script src='dwr/util.js'></script>
+
+<style type="text/css">
+	#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+</style>
+
+<script type="text/javascript">
+	$(function(){
+		$('a[rel*=leanModal]').leanModal();
+	});
+</script>
+
 <title><%String str = request.getParameter("bucket"); %><%=str %>-Bucket</title>
 </head>
 <body>
-	<h1>Bucket:<%=str %></h1>
-	<% 
+<div class="container">
+	<div class="page-header"><h1>Bucket:<%=str %></h1></div>
+<%	
 	OSSClient c = (OSSClient)request.getSession().getAttribute("OSSClient"); 
-	//String id = (String)request.getSession().getAttribute("Id"); 
-	//String secret = (String)request.getSession().getAttribute("Secret"); 
-	
-	%>
-		<table border="1">
+%>
+		<table class="table table-bordered table-striped">
 			<tr>
 				<td>Bucket Name</td>
 				<td>Objects</td>
@@ -48,21 +69,21 @@
 		</table>
 
 <br>
-<input type="button" value="全选" name="checkall" id="checkall">
+<input type="button" value="全选" name="checkall" id="checkall" class="btn btn-small btn-primary">
 <script type="text/javascript">
 $("#checkall").click(function(){
      $("input[name='checkboxes']").each(function() { this.checked = true; });
 });
 </script>
 
-<input type="button" value="取消选中文件" id="cancelall" name="cancelall">
+<input type="button" value="取消选中文件" id="cancelall" name="cancelall" class="btn btn-small btn-primary">
 <script type="text/javascript">
 $("#cancelall").click(function(){
      $("input[name='checkboxes']").attr("checked",false);
 });
 </script>
 
-<input type="button" value="下载选中文件" onclick="openUrl()">
+<input type="button" value="下载选中文件" onclick="openUrl()" class="btn btn-small btn-primary">
 <!-- http://<%=str%>.oss.aliyuncs.com/objectname -->
 <script type="text/javascript">
 var bucket = "<%=str%>";
@@ -77,15 +98,7 @@ function openUrl(){
 }
 </script>
 
-<input type="button" value="批量上传" ><!-- 有难度需要仔细想想 --><% //TODO 端点批量上传实现 %>
-
-
-
-
-
-
-
-<input type="button" value="修改选中文件名称" onclick="renamePage()">
+<input type="button" value="修改选中文件名称" onclick="renamePage()" class="btn btn-small btn-primary">
 <script type="text/javascript">
 	function renamePage(){
 		var objects =[];
@@ -102,7 +115,7 @@ function openUrl(){
 	}
 </script>
 
-<input type="button" value="修改选中文件HTTP表头" onclick="changeHttpHead()">
+<input type="button" value="修改选中文件HTTP表头" onclick="changeHttpHead()" class="btn btn-small btn-primary">
 <script type="text/javascript">
 	function changeHttpHead(){
 		var objects =[];
@@ -120,6 +133,35 @@ function openUrl(){
 </script>
 
 <br><br>
-<a href="index.jsp">返回</a>
+<a id="go" rel="leanModal" href="#test" onclick="show()" class="btn btn-small btn-success">文件上传</a>
+<script type="text/javascript">
+function show(){
+	$("#test").css({display:block});
+}
+</script>
+
+<div id=test style="display: none">
+<form action="UploadFiles?bucket=<%=str %>" method="post" name="form" enctype="multipart/form-data">
+<input type="file" value="upload" name="file0" id="file0"/>
+<input type="button" value="添加" onclick="add()" class="btn btn-success"/>
+
+<script type="text/javascript">	
+    var num = 1;
+	function add(){
+		var tag = "file" + num;
+		var content = "<br><input type='file' value='upload' name=" + tag + " id=" + tag +" />";
+		$("#file0").after(content);
+		num++;
+	}
+</script>
+
+<br><br>
+<input type="submit" name="submit" value="确定" class="btn btn-primary">
+</form>
+</div>
+
+<br><br>
+<a href="index.jsp" class="btn btn-mini btn-info"><i class="icon-leaf icon-white"></i> 返回</a>
+</div>
 </body>
 </html>

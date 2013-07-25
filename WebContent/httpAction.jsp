@@ -2,9 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@page import="com.aliyun.openservices.oss.OSSClient"%>
 <%@page import="com.oss.operations.ChangeHttpHeadThread"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html> 
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Http Headers changing</title>
 </head>
@@ -46,6 +48,7 @@
 				worker.start();
 			}
 	%>
-	<h3>修改请求已提交OSS，<a href="index.jsp">返回</a>P.S.点击“http header属性”可查看详情</h3>
+<div class="container"><h3>修改请求已提交OSS，<a href="index.jsp" class="btn btn-mini btn-info"><i class="icon-leaf icon-white"></i> 返回</a>P.S.点击“http header属性”可查看详情</h3></div>
+	
 </body>
 </html>
