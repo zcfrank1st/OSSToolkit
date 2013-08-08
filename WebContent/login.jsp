@@ -19,7 +19,7 @@
 	</div>
 	<br><br><br><br><br>
 
-	<form action="<%=request.getContextPath()%>/index.jsp" method="post" class="form-horizontal">
+	<form action="<%=request.getContextPath()%>/loginHandler.jsp" method="post" class="form-horizontal">
 		<div class="row">
 			<div class="span3"></div>
 			<div class="span6">
@@ -27,7 +27,7 @@
 				<div class="span1"></div>
 				<div class="span4">
 					<div class="input-prepend">
-					<span class="add-on"><em>KeyId:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em></span><input type="text" name="id" placeholder="请输入阿里云Id" class="span3"/></span>
+					<span class="add-on"><em>KeyId:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em></span><input type="text" name="id" placeholder="请输入阿里云Id" class="span3"/>
 					</div>
 				</div>
 				<div class="span1"></div>

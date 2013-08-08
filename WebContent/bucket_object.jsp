@@ -103,8 +103,20 @@ function openUrl(){
 	function renamePage(){
 		var objects =[];
 		var count = 0;
+		var reg1=new RegExp(",","g"); 
+		var reg2=new RegExp("&","g");
+		var reg3=new RegExp("#","g");
+		var reg4=new RegExp("%","g");
 		$("input:checked").each(function(){
-			objects[count]=$(this).val();
+			var filename = $(this).val();
+			if(filename.indexOf(",")>=0 || filename.indexOf("&")>=0 || filename.indexOf("#")>=0 ||
+					filename.indexOf("%")>=0){
+				filename = filename.replace(reg1,"?");
+				filename = filename.replace(reg2,"|");
+				filename = filename.replace(reg3,">");
+				filename = filename.replace(reg4,"<");
+			}
+			objects[count] = filename;
 			count++;
 		});
 		if (objects.length != 0){
@@ -120,12 +132,53 @@ function openUrl(){
 	function changeHttpHead(){
 		var objects =[];
 		var count = 0;
+		var reg1=new RegExp(",","g"); 
+		var reg2=new RegExp("&","g");
+		var reg3=new RegExp("#","g");
+		var reg4=new RegExp("%","g");
 		$("input:checked").each(function(){
-			objects[count]=$(this).val();
+			var filename = $(this).val();
+			if(filename.indexOf(",")>=0 || filename.indexOf("&")>=0 || filename.indexOf("#")>=0 ||
+					filename.indexOf("%")>=0){
+				filename = filename.replace(reg1,"?");
+				filename = filename.replace(reg2,"|");
+				filename = filename.replace(reg3,">");
+				filename = filename.replace(reg4,"<");
+			}
+			objects[count] = filename;
 			count++;
 		});
 		if (objects.length != 0){
 			location.href="http.jsp?bn="+bucket+"&objects="+objects;
+		}else{
+			alert("请选择文件！");
+		}	
+	}
+</script>
+
+<input type="button" value="删除选中文件" onclick="del()" class="btn btn-small btn-primary">
+<script type="text/javascript">
+	function del(){
+		var objects =[];
+		var count = 0;
+		var reg1=new RegExp(",","g"); 
+		var reg2=new RegExp("&","g");
+		var reg3=new RegExp("#","g");
+		var reg4=new RegExp("%","g");
+		$("input:checked").each(function(){
+			var filename = $(this).val();
+			if(filename.indexOf(",")>=0 || filename.indexOf("&")>=0 || filename.indexOf("#")>=0 ||
+					filename.indexOf("%")>=0){
+				filename = filename.replace(reg1,"?");
+				filename = filename.replace(reg2,"|");
+				filename = filename.replace(reg3,">");
+				filename = filename.replace(reg4,"<");
+			}
+			objects[count] = filename;
+			count++;
+		});
+		if (objects.length != 0){
+			location.href="del.jsp?bn="+bucket+"&objects="+objects;
 		}else{
 			alert("请选择文件！");
 		}	
@@ -141,7 +194,7 @@ function show(){
 </script>
 
 <div id=test style="display: none">
-<form action="UploadFiles?bucket=<%=str %>" method="post" name="form" enctype="multipart/form-data">
+<form action="uploadStat.jsp?bucket=<%=str %>" method="post" name="form" enctype="multipart/form-data">
 <input type="file" value="upload" name="file0" id="file0"/>
 <input type="button" value="添加" onclick="add()" class="btn btn-success"/>
 
@@ -156,7 +209,7 @@ function show(){
 </script>
 
 <br><br>
-<input type="submit" name="submit" value="确定" class="btn btn-primary">
+<input type="submit" name="submit" value="确定" class="btn btn-primary"/>
 </form>
 </div>
 

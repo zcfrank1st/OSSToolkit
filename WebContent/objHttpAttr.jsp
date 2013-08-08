@@ -18,6 +18,10 @@
 		OSSClient c = (OSSClient)request.getSession().getAttribute("OSSClient"); 
 		String bucket = request.getParameter("bucket");
 		String obj = request.getParameter("object");
+		obj = obj.replaceAll("\\?", ",");
+		obj = obj.replaceAll("\\|", "&");
+		obj = obj.replaceAll("\\>", "#");
+		obj = obj.replaceAll("\\<", "%");
 		
 		ObjectMetadata meta = c.getObjectMetadata(bucket, obj);
 		
@@ -33,7 +37,7 @@
 		String ContentDisposition = meta.getContentDisposition();
 	%>
 <div class="container">
-	<div class="page-header"><h1>Http Header Attr  <small>Bucket:Object--><%=bucket %>:<%=obj %></small></h1></div>
+	<div class="page-header"><h1>Http Header Attributes  <br><small>Bucket:Object--><%=bucket %>:<%=obj %></small></h1></div>
 	<table class="table table-striped table-bordered">
 		<tr>
 			<td>Content-Type:<%=ContentType %><br><br></td>

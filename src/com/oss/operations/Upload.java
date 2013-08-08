@@ -3,7 +3,10 @@ package com.oss.operations;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+
+import org.apache.commons.codec.digest.DigestUtils;
 
 import com.aliyun.openservices.oss.OSSClient;
 import com.aliyun.openservices.oss.model.ObjectMetadata;
@@ -14,6 +17,7 @@ public class Upload implements Runnable{
 	private File f;
 	private String bucketName = "";
 	private String key = "";
+	private String tag = "";
 	
 	public Upload(OSSClient client, File f, String bucketName, String key){
 		this.client = client;
@@ -24,22 +28,32 @@ public class Upload implements Runnable{
 
 	@Override
 	public void run() {
-		InputStream content = null;;
-		try {
-			content = new FileInputStream(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		if (key == "" || key == null){
+			// 什么都不做
+		}else{
+			InputStream content = null;;
+			try {
+				content = new FileInputStream(f);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			
+			ObjectMetadata meta = new ObjectMetadata();
+			meta.setContentLength(f.length());
+			
+			PutObjectResult result = client.putObject(bucketName, key, content, meta);
+			
+			tag = result.getETag();
+			try {
+				if (tag == DigestUtils.md5Hex(new FileInputStream(f))){
+					f.delete();
+				}
+			} catch (FileNotFoundException e) {
+				System.out.println("dsdsd");
+			} catch (IOException e) {
+				System.out.println("sdsdsd");
+			}
+			}
 		}
-		
-		ObjectMetadata meta = new ObjectMetadata();
-		meta.setContentLength(f.length());
-		
-		PutObjectResult result = client.putObject(bucketName, key, content, meta);
-		
-		if (result.getETag()!= "" && result.getETag() != null){
-			f.delete();
-		}
-		
-	}
 	
 }

@@ -44,7 +44,12 @@
 				String cc = httpHeaders[i][j++];
 				String ce = httpHeaders[i][j++];
 				String cd = httpHeaders[i][j];
-				Thread worker = new Thread(new ChangeHttpHeadThread(client,bucketName,nameArray[i],ct,cl,e,cc,ce,cd));
+				
+				String s = nameArray[i].replaceAll("\\?", ",");
+				s = s.replaceAll("\\|", "&");
+				s = s.replaceAll("\\>", "#");
+				s = s.replaceAll("\\<", "%");
+				Thread worker = new Thread(new ChangeHttpHeadThread(client,bucketName,s,ct,cl,e,cc,ce,cd));
 				worker.start();
 			}
 	%>

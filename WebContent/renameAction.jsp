@@ -21,9 +21,13 @@
 			
 			for(int i=0; i<=totalNum-1; i++){
 				newNameArr[i] = request.getParameter(i+"");
-				Thread worker = new Thread(new RenameThread(client,bucketName,nameArray[i],newNameArr[i])); 
+				String s = nameArray[i].replaceAll("\\?", ",");
+				s = s.replaceAll("\\|", "&");
+				s = s.replaceAll("\\>", "#");
+				s = s.replaceAll("\\<", "%");
+				Thread worker = new Thread(new RenameThread(client,bucketName,s,newNameArr[i])); 
 				worker.start();
-			}
+			} 
 	%>
 	<h3>修改请求已提交OSS，<a href="index.jsp" class="btn btn-info btn-mini"><i class="icon-leaf icon-white"></i> 返回</a>查看修改结果</h3>
 </body>

@@ -32,8 +32,12 @@
 					<%	
 						String[] objArr = objs.split(",");
 						for(int i=0; i<=objArr.length-1; i++){
+							String obj = objArr[i].replaceAll("\\?", ",");
+							obj = obj.replaceAll("\\|", "&");
+							obj = obj.replaceAll("\\>", "#");
+							obj = obj.replaceAll("\\<", "%");
 					%>
-						<%=objArr[i] %><br>
+						<%=obj %><br>
 					<% }%>
 				</td>
 				<td>
